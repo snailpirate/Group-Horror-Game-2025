@@ -1,69 +1,133 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // Necessary for direct keyboard check
+using UnityEngine.UI;
 
-//This script uses the new input system via callbacks, and moves the character in first person.
 public class FirstPersonMove : MonoBehaviour
 {
+    private CharacterController controller;
+    private Vector2 moveInput;
+    private Vector3 velocity;
 
-    private CharacterController controller; //reference to character controller
-    private Vector2 moveInput; //stores input from players (WASD and others)
-    private Vector3 velocity; //Movement for jumping and gravity (no physics)
+    [Header("UI References")]
+    public Image staminaBarFill; 
 
     [Header("Movement Settings")]
-    public float moveSpeed = 5.0f; //speed in meters per second
-    public float jumpHeight = 2.0f; //jump height in meters
+    public float walkSpeed = 10.0f; 
+    public float sprintSpeed = 20.0f; 
+    public float jumpHeight = 2.0f;
+    
+    [Header("DEBUG VIEW (Read Only)")]
+    [SerializeField] private float currentSpeed;
+    [SerializeField] private bool isSprintPressed; // We will set this manually now
+    [SerializeField] private bool isExhausted;
 
     [Header("Gravity Settings")]
-    public float gravity = -9.8f; //fall speed (should be negative)
-    private bool isGrounded; //check if is grounded
+    public float gravity = -9.8f;
+    private bool isGrounded;
 
     [Header("Ground Check Settings")]
-    public Transform groundCheck; //empty object located below the player to check if is grounded
-    public float groundDistance = 0.4f; // Radius of the sphere used to detect the ground
-    public LayerMask groundMask; // Layer(s) that count as ground
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
 
+    [Header("Stamina Settings")]
+    public float maxStamina = 100f;
+    public float currentStamina;
+    public float drainRate = 20f;
+    public float regenRate = 10f;
+    public float exhaustionThreshold = 25f; 
 
-    // Called once at the beginning to cache the CharacterController
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        currentStamina = maxStamina; 
+        currentSpeed = walkSpeed;
     }
 
-    //Called automatically by the Input System when movement input is received. It stores directional input for use in PureData.
+    // --- INPUT METHODS (Move and Jump still use the Input System) ---
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    //Called automatically by the Input System when Jump is recioeved. It applies velocity up if the player is grounded.
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded)
         {
-            //Equation that calculates velocity needed to reach certain heirgh
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }
 
-    // Called once per frame to update movement and gravity
+    // WE NO LONGER NEED OnSprint. We will check it directly in Update.
+
+    // --- MAIN LOOP ---
     void Update()
     {
-        // Check if the player is grounded using a physics sphere at groundCheck position
+        // 1. HARDWIRED INPUT CHECK
+        // This asks the keyboard directly, bypassing the Event system wiring.
+        if (Keyboard.current != null)
+        {
+            isSprintPressed = Keyboard.current.leftShiftKey.isPressed;
+        }
+
+        HandleGravity();
+        HandleStaminaAndSpeed(); 
+        HandleMovement();
+        UpdateUI();
+    }
+
+    void HandleGravity()
+    {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; //add a small downward force to keep the player tied to the ground as it moves through topology
+            velocity.y = -2f;
         }
+    }
 
-        //moving in the direction set by FirstPersonLook
+    void HandleStaminaAndSpeed()
+    {
+        // 1. Check Exhaustion
+        if (currentStamina <= 0) isExhausted = true;
+        else if (currentStamina >= exhaustionThreshold) isExhausted = false;
+
+        // 2. Logic Check
+        // Note: We removed the "isMoving" check as requested earlier
+        bool shouldSprint = isSprintPressed && !isExhausted;
+
+        if (shouldSprint)
+        {
+            currentSpeed = sprintSpeed;
+            currentStamina -= drainRate * Time.deltaTime;
+        }
+        else
+        {
+            currentSpeed = walkSpeed;
+            if (currentStamina < maxStamina)
+            {
+                currentStamina += regenRate * Time.deltaTime;
+            }
+        }
+        
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+    }
+
+    void HandleMovement()
+    {
         Vector3 move = new Vector3(moveInput.x, 0.0f, moveInput.y);
-        controller.Move(transform.TransformDirection(move) * moveSpeed * Time.deltaTime);
+        controller.Move(transform.TransformDirection(move) * currentSpeed * Time.deltaTime);
 
-        // Apply gravity manually (no physics)
         velocity.y += gravity * Time.deltaTime;
-
-        // Apply vertical movement (jumping/falling)
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void UpdateUI()
+    {
+        if (staminaBarFill != null)
+        {
+            staminaBarFill.fillAmount = currentStamina / maxStamina;
+            staminaBarFill.color = isExhausted ? Color.red : Color.white; 
+        }
     }
 }
