@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/FPBasics_Abe/Hallway.unity
+    guid: 7144daf7fe63c4b3abc3a345f662adb3
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: bf6c094ab935d4519a877185e46dabe1
-  - enabled: 1
+  - enabled: 0
     path: Assets/FPBasics_Abe/FPBasics.unity
     guid: 1c17a73c40fb2bd4abc470fa3fafa124
   m_configObjects:
