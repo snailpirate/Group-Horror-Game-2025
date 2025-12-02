@@ -1,41 +1,66 @@
 using UnityEngine;
-using TMPro; // We use TextMeshPro for better text, standard Unity Text works too
-using UnityEngine.UI;
+using TMPro;
+using System.Collections; // Required for Coroutines
 
 public class BearGameManager : MonoBehaviour
 {
-    public static BearGameManager instance; // Singleton for easy access
+    public static BearGameManager instance;
 
     [Header("UI References")]
-    public TextMeshProUGUI counterText; // The "0/6 Teddy Bears" text
-    public GameObject hugPrompt;        // The "Press E to Hug" text object
+    public TextMeshProUGUI counterText;
+    public GameObject hugPrompt;
+
+    [Header("Cinematic Settings")]
+    public GameObject hugCinematicObject; // Drag your Arms/Bear model here
+    public float animationDuration = 2.0f; // How long is your animation in seconds?
 
     private int bearsCaught = 0;
     private int totalBears = 6;
+    private bool isHugging = false; // Prevents spamming E while hugging
 
     void Awake()
     {
-        // Simple singleton setup
         if (instance == null) instance = this;
     }
 
     void Start()
     {
         UpdateCounterUI();
-        hugPrompt.SetActive(false); // Hide prompt at start
+        hugPrompt.SetActive(false);
+
+        // Ensure the cinematic is hidden at start
+        if (hugCinematicObject != null)
+            hugCinematicObject.SetActive(false);
     }
 
-    public void AddScore()
+    // Call this from the Bear script
+    public void TriggerHugSequence()
     {
+        if (isHugging) return; // Don't allow double hugs
+
+        // 1. Update logic
         bearsCaught++;
         UpdateCounterUI();
+        ToggleHugPrompt(false);
 
-        // Optional: Check for win condition
-        if (bearsCaught >= totalBears)
-        {
-            Debug.Log("All bears caught!");
-            // You could load a win screen here
-        }
+        // 2. Start the cinematic routine
+        StartCoroutine(PlayHugCinematic());
+    }
+
+    IEnumerator PlayHugCinematic()
+    {
+        isHugging = true;
+
+        // Turn on the arms/bear model
+        hugCinematicObject.SetActive(true);
+
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(animationDuration);
+
+        // Turn off the arms/bear model
+        hugCinematicObject.SetActive(false);
+
+        isHugging = false;
     }
 
     void UpdateCounterUI()
@@ -43,9 +68,14 @@ public class BearGameManager : MonoBehaviour
         counterText.text = bearsCaught + "/" + totalBears + " Teddy Bears";
     }
 
-    // Helper to turn the "Press E" prompt on/off
     public void ToggleHugPrompt(bool show)
     {
+        // Don't show the prompt if we are currently hugging
+        if (isHugging)
+        {
+            hugPrompt.SetActive(false);
+            return;
+        }
         hugPrompt.SetActive(show);
     }
 }

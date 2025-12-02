@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // REQUIRED for the new system
+using UnityEngine.InputSystem;
 
 public class TeddyBearInteract : MonoBehaviour
 {
@@ -9,7 +9,6 @@ public class TeddyBearInteract : MonoBehaviour
     {
         if (isPlayerClose)
         {
-            // NEW CODE: Checks the "E" key on the current keyboard
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
                 PerformHug();
@@ -19,8 +18,11 @@ public class TeddyBearInteract : MonoBehaviour
 
     void PerformHug()
     {
-        BearGameManager.instance.AddScore();
-        BearGameManager.instance.ToggleHugPrompt(false);
+        // 1. Trigger the cinematic and score in the Manager
+        BearGameManager.instance.TriggerHugSequence();
+
+        // 2. Destroy this specific world-bear immediately
+        // (The cinematic bear will appear to "replace" it)
         Destroy(gameObject);
     }
 
