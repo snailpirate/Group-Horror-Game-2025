@@ -962,18 +962,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 408298479947779894, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
---- !u!114 &905514027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905514024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c0779d65e314fdab7ec9b2fc213631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneSwitch
 --- !u!1 &911862088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,12 +1239,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 616992905}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1218815824}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1218815823}
     - targetCorrespondingSourceObject: {fileID: -4441830514211856811, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
       addedObject: {fileID: 466898455}
@@ -1265,46 +1247,11 @@ PrefabInstance:
       addedObject: {fileID: 633397164}
     - targetCorrespondingSourceObject: {fileID: -2462305430985366406, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 905514027}
-    - targetCorrespondingSourceObject: {fileID: -2462305430985366406, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 905514026}
-    - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1754559306}
     - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1754559305}
   m_SourcePrefab: {fileID: 100100000, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
---- !u!1 &1218815822 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
-  m_PrefabInstance: {fileID: 1170504688}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1218815823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218815822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c0779d65e314fdab7ec9b2fc213631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneSwitch
---- !u!114 &1218815824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218815822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c0779d65e314fdab7ec9b2fc213631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneSwitch
 --- !u!1 &1225281049 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ea88a2bf4a2b23142bcaae1cc4ccbdb2, type: 3}
@@ -1574,18 +1521,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6035630404203467501, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
---- !u!114 &1754559306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754559303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c0779d65e314fdab7ec9b2fc213631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneSwitch
 --- !u!1001 &2239953571714521470
 PrefabInstance:
   m_ObjectHideFlags: 0
