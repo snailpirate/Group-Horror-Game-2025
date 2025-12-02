@@ -447,14 +447,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aca75611375846e1afe77949c86acdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpHeight: 2
+  staminaBarFill: {fileID: 0}
+  walkSpeed: 10
+  sprintSpeed: 20
+  jumpHeight: 5
+  currentSpeed: 0
+  isSprintPressed: 0
+  isExhausted: 0
   gravity: -9.8
   groundCheck: {fileID: 3237638807758688708}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  maxStamina: 100
+  currentStamina: 0
+  drainRate: 20
+  regenRate: 10
+  exhaustionThreshold: 25
 --- !u!114 &964407592358205473
 MonoBehaviour:
   m_ObjectHideFlags: 0
