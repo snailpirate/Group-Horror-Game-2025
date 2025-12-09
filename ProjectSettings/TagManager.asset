@@ -7,6 +7,7 @@ TagManager:
   - ScoreText
   - HugPrompt
   - CinematicArms
+  - StaminaFill
   layers:
   - Default
   - TransparentFX
