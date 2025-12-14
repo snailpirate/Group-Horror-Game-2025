@@ -18,7 +18,7 @@ public class BearGameManager : MonoBehaviour
 
     // DATA
     public List<string> caughtBearIDs = new List<string>();
-    private int totalBears = 12;
+    private int totalBears = 20;
     private bool isHugging = false;
 
     void Awake()
