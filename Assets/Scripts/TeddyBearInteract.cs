@@ -3,7 +3,24 @@ using UnityEngine.InputSystem;
 
 public class TeddyBearInteract : MonoBehaviour
 {
+    [Header("Identity")]
+    public string bearID; // NAME THIS UNIQUE FOR EVERY BEAR (e.g. Bear1, Bear2)
+
     private bool isPlayerClose = false;
+
+    void Start()
+    {
+        // MEMORY CHECK:
+        // When the scene loads, check if the Manager already has my ID in the list.
+        if (BearGameManager.instance != null)
+        {
+            if (BearGameManager.instance.caughtBearIDs.Contains(bearID))
+            {
+                // I have already been caught! Destroy myself immediately.
+                Destroy(gameObject);
+            }
+        }
+    }
 
     void Update()
     {
@@ -18,12 +35,13 @@ public class TeddyBearInteract : MonoBehaviour
 
     void PerformHug()
     {
-        // 1. Trigger the cinematic and score in the Manager
-        BearGameManager.instance.TriggerHugSequence();
+        // Pass my unique ID to the manager
+        bool permissionGranted = BearGameManager.instance.TriggerHugSequence(bearID);
 
-        // 2. Destroy this specific world-bear immediately
-        // (The cinematic bear will appear to "replace" it)
-        Destroy(gameObject);
+        if (permissionGranted)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

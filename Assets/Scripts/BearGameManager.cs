@@ -1,81 +1,122 @@
 using UnityEngine;
 using TMPro;
-using System.Collections; // Required for Coroutines
+using System.Collections;
+using System.Collections.Generic; // Needed for Lists
+using UnityEngine.SceneManagement; // Needed to detect scene changes
 
 public class BearGameManager : MonoBehaviour
 {
     public static BearGameManager instance;
 
     [Header("UI References")]
+    // We don't drag these in anymore. The script finds them automatically.
     public TextMeshProUGUI counterText;
     public GameObject hugPrompt;
 
     [Header("Cinematic Settings")]
-    public GameObject hugCinematicObject; // Drag your Arms/Bear model here
-    public float animationDuration = 2.0f; // How long is your animation in seconds?
+    public GameObject hugCinematicObject;
+    public float animationDuration = 2.0f;
 
-    private int bearsCaught = 0;
+    // DATA: Keep track of specific bears caught
+    public List<string> caughtBearIDs = new List<string>();
     private int totalBears = 6;
-    private bool isHugging = false; // Prevents spamming E while hugging
+    private bool isHugging = false;
 
     void Awake()
     {
-        if (instance == null) instance = this;
+        // SINGLETON PATTERN WITH PERSISTENCE
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Don't die when scene changes!
+        }
+        else
+        {
+            // If we go back to the hallway, a new Manager will try to start.
+            // We destroy the NEW one so the OLD one (with the score) stays in charge.
+            Destroy(gameObject);
+        }
     }
 
-    void Start()
+    // Automatically find UI when a new scene loads
+    void OnEnable()
     {
-        UpdateCounterUI();
-        hugPrompt.SetActive(false);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-        // Ensure the cinematic is hidden at start
-        if (hugCinematicObject != null)
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 1. Find the Text by TAG (We will set this tag in the editor later)
+        GameObject textObj = GameObject.FindGameObjectWithTag("ScoreText");
+        if (textObj != null)
+            counterText = textObj.GetComponent<TextMeshProUGUI>();
+
+        // 2. Find the Prompt by TAG
+        GameObject promptObj = GameObject.FindGameObjectWithTag("HugPrompt");
+        if (promptObj != null)
+        {
+            hugPrompt = promptObj;
+            hugPrompt.SetActive(false);
+        }
+
+        // 3. Find the Cinematic Object (Assuming it's attached to the camera in every scene)
+        // If your cinematic object is only in the hallway, this might need adjustment, 
+        // but finding it by Tag is safest.
+        GameObject cineObj = GameObject.FindGameObjectWithTag("CinematicArms");
+        if (cineObj != null)
+        {
+            hugCinematicObject = cineObj;
             hugCinematicObject.SetActive(false);
+        }
+
+        // 4. Update the visual score immediately
+        UpdateCounterUI();
     }
 
-    // Call this from the Bear script
-    public void TriggerHugSequence()
+    public bool TriggerHugSequence(string bearID)
     {
-        if (isHugging) return; // Don't allow double hugs
+        if (isHugging) return false;
 
-        // 1. Update logic
-        bearsCaught++;
+        // Add this specific bear's ID to our memory list
+        if (!caughtBearIDs.Contains(bearID))
+        {
+            caughtBearIDs.Add(bearID);
+        }
+
         UpdateCounterUI();
         ToggleHugPrompt(false);
-
-        // 2. Start the cinematic routine
         StartCoroutine(PlayHugCinematic());
+        return true;
     }
 
     IEnumerator PlayHugCinematic()
     {
         isHugging = true;
+        if (hugCinematicObject != null) hugCinematicObject.SetActive(true);
 
-        // Turn on the arms/bear model
-        hugCinematicObject.SetActive(true);
-
-        // Wait for the animation to finish
         yield return new WaitForSeconds(animationDuration);
 
-        // Turn off the arms/bear model
-        hugCinematicObject.SetActive(false);
-
+        if (hugCinematicObject != null) hugCinematicObject.SetActive(false);
         isHugging = false;
     }
 
     void UpdateCounterUI()
     {
-        counterText.text = bearsCaught + "/" + totalBears + " Teddy Bears";
+        // Only update text if the text object actually exists in this scene
+        if (counterText != null)
+        {
+            counterText.text = caughtBearIDs.Count + "/" + totalBears + " Teddy Bears";
+        }
     }
 
     public void ToggleHugPrompt(bool show)
     {
-        // Don't show the prompt if we are currently hugging
-        if (isHugging)
-        {
-            hugPrompt.SetActive(false);
-            return;
-        }
+        if (isHugging || hugPrompt == null) return;
         hugPrompt.SetActive(show);
     }
 }
