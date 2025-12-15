@@ -1,15 +1,14 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic; // Needed for Lists
-using UnityEngine.SceneManagement; // Needed to detect scene changes
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class BearGameManager : MonoBehaviour
 {
     public static BearGameManager instance;
 
     [Header("UI References")]
-    // We don't drag these in anymore. The script finds them automatically.
     public TextMeshProUGUI counterText;
     public GameObject hugPrompt;
 
@@ -17,28 +16,24 @@ public class BearGameManager : MonoBehaviour
     public GameObject hugCinematicObject;
     public float animationDuration = 2.0f;
 
-    // DATA: Keep track of specific bears caught
+    // DATA
     public List<string> caughtBearIDs = new List<string>();
-    private int totalBears = 6;
+    private int totalBears = 20;
     private bool isHugging = false;
 
     void Awake()
     {
-        // SINGLETON PATTERN WITH PERSISTENCE
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Don't die when scene changes!
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            // If we go back to the hallway, a new Manager will try to start.
-            // We destroy the NEW one so the OLD one (with the score) stays in charge.
             Destroy(gameObject);
         }
     }
 
-    // Automatically find UI when a new scene loads
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -51,12 +46,10 @@ public class BearGameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 1. Find the Text by TAG (We will set this tag in the editor later)
+        // 1. Find UI (These are usually active, so FindTag works)
         GameObject textObj = GameObject.FindGameObjectWithTag("ScoreText");
-        if (textObj != null)
-            counterText = textObj.GetComponent<TextMeshProUGUI>();
+        if (textObj != null) counterText = textObj.GetComponent<TextMeshProUGUI>();
 
-        // 2. Find the Prompt by TAG
         GameObject promptObj = GameObject.FindGameObjectWithTag("HugPrompt");
         if (promptObj != null)
         {
@@ -64,17 +57,25 @@ public class BearGameManager : MonoBehaviour
             hugPrompt.SetActive(false);
         }
 
-        // 3. Find the Cinematic Object (Assuming it's attached to the camera in every scene)
-        // If your cinematic object is only in the hallway, this might need adjustment, 
-        // but finding it by Tag is safest.
-        GameObject cineObj = GameObject.FindGameObjectWithTag("CinematicArms");
-        if (cineObj != null)
+        // 2. FIND THE HIDDEN CINEMATIC ARMS (The New Fix)
+        // We cannot use GameObject.FindWithTag because the object is disabled.
+        // Instead, we find the Player, then look through all their children (even hidden ones).
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            hugCinematicObject = cineObj;
-            hugCinematicObject.SetActive(false);
+            // Get EVERY child object attached to the player (true = include hidden)
+            Transform[] allChildren = player.GetComponentsInChildren<Transform>(true);
+
+            foreach (Transform child in allChildren)
+            {
+                if (child.CompareTag("CinematicArms"))
+                {
+                    hugCinematicObject = child.gameObject;
+                    break; // Found it! Stop looking.
+                }
+            }
         }
 
-        // 4. Update the visual score immediately
         UpdateCounterUI();
     }
 
@@ -82,7 +83,6 @@ public class BearGameManager : MonoBehaviour
     {
         if (isHugging) return false;
 
-        // Add this specific bear's ID to our memory list
         if (!caughtBearIDs.Contains(bearID))
         {
             caughtBearIDs.Add(bearID);
@@ -107,7 +107,6 @@ public class BearGameManager : MonoBehaviour
 
     void UpdateCounterUI()
     {
-        // Only update text if the text object actually exists in this scene
         if (counterText != null)
         {
             counterText.text = caughtBearIDs.Count + "/" + totalBears + " Teddy Bears";
