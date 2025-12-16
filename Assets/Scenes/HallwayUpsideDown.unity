@@ -1277,7 +1277,7 @@ GameObject:
   - component: {fileID: 716350666}
   - component: {fileID: 716350665}
   - component: {fileID: 716350664}
-  - component: {fileID: 716350663}
+  - component: {fileID: 716350668}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -1285,18 +1285,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &716350663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716350662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71839d006bef45ff9b7d7dcc38448da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneBackReal
 --- !u!65 &716350664
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1389,6 +1377,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716350668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716350662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: Hallway
 --- !u!1001 &876845341
 PrefabInstance:
   m_ObjectHideFlags: 0

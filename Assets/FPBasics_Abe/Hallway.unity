@@ -447,16 +447,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -2462305430985366406, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 365860385}
+      addedObject: {fileID: 365860383}
     - targetCorrespondingSourceObject: {fileID: -2462305430985366406, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 365860383}
-    - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 790283942}
+      addedObject: {fileID: 365860384}
     - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 790283940}
+    - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 790283941}
   m_SourcePrefab: {fileID: 100100000, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
 --- !u!1001 &249226139
 PrefabInstance:
@@ -834,7 +834,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 408298479947779894, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
---- !u!114 &365860385
+--- !u!114 &365860384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -843,9 +843,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 365860379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd704d585983463b9635275dcd91985, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneGym
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: Gym
 --- !u!1 &366756980 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6777517549394120322, guid: 099fdfc1af042430f8498a04bd4db376, type: 3}
@@ -1357,7 +1358,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6035630404203467501, guid: 7f0e1d42ecbd844d0a18ab067350fec5, type: 3}
---- !u!114 &790283942
+--- !u!114 &790283941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1366,9 +1367,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 790283936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd704d585983463b9635275dcd91985, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneGym
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: Gym
 --- !u!114 &793278355 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 344145806248943005, guid: 099fdfc1af042430f8498a04bd4db376, type: 3}
@@ -2433,9 +2435,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1470255857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21dfdf18c34347f69d08996c2e006cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneUpsideDown
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: HallwayUpsideDown
 --- !u!1 &1502548713 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 79bda461c8000497c9fd2a153157939e, type: 3}
@@ -2610,7 +2613,7 @@ GameObject:
   - component: {fileID: 1540085459}
   - component: {fileID: 1540085458}
   - component: {fileID: 1540085457}
-  - component: {fileID: 1540085456}
+  - component: {fileID: 1540085461}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -2618,18 +2621,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1540085456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540085455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c0779d65e314fdab7ec9b2fc213631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneSwitch
 --- !u!65 &1540085457
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2722,6 +2713,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1540085461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540085455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: SampleScene
 --- !u!1001 &1577796507
 PrefabInstance:
   m_ObjectHideFlags: 0

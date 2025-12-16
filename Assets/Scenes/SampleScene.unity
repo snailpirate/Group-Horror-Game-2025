@@ -188,7 +188,7 @@ PrefabInstance:
       addedObject: {fileID: 1505702054}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 79bda461c8000497c9fd2a153157939e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1505702058}
+      addedObject: {fileID: 1505702055}
   m_SourcePrefab: {fileID: 100100000, guid: 79bda461c8000497c9fd2a153157939e, type: 3}
 --- !u!1 &221582290
 GameObject:
@@ -2637,7 +2637,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -466587764248030646, guid: 79bda461c8000497c9fd2a153157939e, type: 3}
---- !u!114 &1505702058
+--- !u!114 &1505702055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2646,9 +2646,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1505702053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99008ea424f004dc796be2244bce7af5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneBack
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: Hallway
 --- !u!1001 &1699151358
 PrefabInstance:
   m_ObjectHideFlags: 0

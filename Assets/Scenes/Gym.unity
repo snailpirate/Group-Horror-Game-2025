@@ -877,7 +877,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 408298479947779894, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
---- !u!114 &905514028
+--- !u!114 &905514027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -886,9 +886,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 905514024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71839d006bef45ff9b7d7dcc38448da, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneBackReal
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: Hallway
 --- !u!1 &911862088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,16 +1101,16 @@ PrefabInstance:
       addedObject: {fileID: 633397164}
     - targetCorrespondingSourceObject: {fileID: -2462305430985366406, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 905514028}
+      addedObject: {fileID: 905514026}
     - targetCorrespondingSourceObject: {fileID: -2462305430985366406, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 905514026}
+      addedObject: {fileID: 905514027}
     - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1754559305}
     - targetCorrespondingSourceObject: {fileID: 4775392862161641375, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1754559307}
+      addedObject: {fileID: 1754559306}
   m_SourcePrefab: {fileID: 100100000, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
 --- !u!1001 &1221136175
 PrefabInstance:
@@ -1538,7 +1539,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6035630404203467501, guid: 30d2674e0cfb64ad5a9be2d2c7967d61, type: 3}
---- !u!114 &1754559307
+--- !u!114 &1754559306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1547,9 +1548,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1754559303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71839d006bef45ff9b7d7dcc38448da, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb3435bfeee06f4db00f183634b5fac, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneBackReal
+  m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+  sceneToLoad: Hallway
 --- !u!1001 &1761261686
 PrefabInstance:
   m_ObjectHideFlags: 0
