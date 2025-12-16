@@ -8,6 +8,8 @@ TagManager:
   - HugPrompt
   - CinematicArms
   - StaminaFill
+  - WhiteScreen
+  - IntroText
   layers:
   - Default
   - TransparentFX
